@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 struct data{
     int dia;
@@ -17,7 +16,7 @@ struct agenda{
 int main() {
     struct agenda *agendas;
     int opcao;
-    bool continua = false;
+    int continua = 0;
     int N_agendas = 0;//contador
     agendas = (struct agenda*) malloc(sizeof (struct agenda));
 
@@ -37,7 +36,15 @@ int main() {
     printf("digite o ano do seu nascimento");
     scanf("%d", &agendas->dataDeNascimento.ano);
 
-    while (continua){
+    printf("deseja criar outra entrada na agenda?\ndigite 1 para sim e 0 para nao");
+    scanf("%d", &opcao);
+
+    if(opcao == 1){
+        continua = 1;
+
+    }
+
+    while (continua == 1){
         N_agendas++;
         agendas = (struct agenda*) realloc(agendas,(N_agendas+1) * sizeof (struct agenda));
         printf("digite seu nome");
@@ -52,15 +59,15 @@ int main() {
         scanf("%d", &agendas[N_agendas].dataDeNascimento.ano);
 
         printf("deseja criar outra entrada na agenda?\ndigite 1 para sim e 0 para nao");
-        printf("%d", &opcao);
+        scanf("%d", &opcao);
 
         if(opcao == 0){
-            continua = false;
+            continua = 0;
 
         }
     }
 
-    for (int i = 0; i < N_agendas; i++) {
+    for (int i = 0; i <= N_agendas; i++) {
         printf("%s\n", agendas[i].nome);
         printf("%s\n", agendas[i].telefone);
         printf("Data de Nascimento: %d / %s / %d\n", agendas[i].dataDeNascimento.dia, agendas[i].dataDeNascimento.mes, agendas[i].dataDeNascimento.ano);
